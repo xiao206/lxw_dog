@@ -1,0 +1,188 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <title>lxwdog</title>
+  <style>
+    body {
+      background: #f9f9f9; /* 浅灰色背景，柔和不刺眼 */
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: "微软雅黑", "Arial", sans-serif;
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    .cute-img {
+      width: 150px;
+      margin-bottom: 20px;
+    }
+
+    .question {
+      font-size: 2em;
+      color: #555; /* 深灰色文字，适配新背景 */
+      margin-bottom: 30px;
+    }
+
+    .btn-yes {
+      background: #f5a9b8; /* 柔和粉色 */
+      color: #fff;
+      border: none;
+      font-size: 2em;
+      padding: 20px 50px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.2s;
+	  margin-right: 20px;
+    }
+
+    .btn-yes:hover {
+      background: #e8899c; /* 加深粉色 */
+    }
+
+    .btn-yes.enlarge-1 {
+      font-size: 2.5em;
+      padding: 30px 70px;
+      transition: all 0.3s;
+    }
+
+    .btn-yes.enlarge-2 {
+      font-size: 3em;
+      padding: 40px 90px;
+      transition: all 0.3s;
+    }
+
+    .btn-yes.enlarge-3 {
+      font-size: 3.5em;
+      padding: 50px 110px;
+      transition: all 0.3s;
+    }
+
+    .btn-no {
+      background: #b9d1e5; /* 柔和蓝色 */
+      color: #fff;
+      border: none;
+     font-size: 2em;
+     padding: 20px 50px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-no:hover {
+      background: #9fb8d0; /* 加深蓝色 */
+    }
+
+    .btn-no.shrink-1 {
+      font-size: 1.5em;
+      padding: 15px 35px;
+      transition: all 0.3s;
+    }
+
+    .btn-no.shrink-2 {
+      font-size: 1em;
+      padding: 10px 25px;
+      transition: all 0.3s;
+    }
+
+    .btn-no.shrink-3 {
+      font-size: 0.5em;
+      padding: 5px 15px;
+      transition: all 0.3s;
+    }
+
+    .success-message {
+      display: none;
+      text-align: center;
+    }
+
+    .success-img {
+      width: 150px;
+      margin-bottom: 20px;
+    }
+
+    .success-text {
+      font-size: 2em;
+      color: #555; /* 深灰色文字 */
+      margin-bottom: 30px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container" id="mainContainer">
+    <img class="cute-img" src="img/1.gif" alt="可爱卡通" id="cuteImg">
+    <div class="question">李馨慰是狗吗？</div>
+    <div class="btns">
+      <button class="btn-yes" id="yesBtn">是的</button>
+      <button class="btn-no" id="noBtn">不是</button>
+    </div>
+  </div>
+
+  <div class="success-message" id="successMessage">
+    <img class="success-img" src="img/5.gif" alt="成功卡通">
+    <div class="success-text">李馨慰=狗</div>
+  </div>
+
+  <script>
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    const cuteImg = document.getElementById('cuteImg');
+    const mainContainer = document.getElementById('mainContainer');
+    const successMessage = document.getElementById('successMessage');
+
+    let refuseCount = 0;
+    const refuseTexts = [
+      '你确定？',
+      '真的不是？',
+      '呵呵',
+    ];
+    const cuteImgs = [
+      'img/1.gif',
+      'img/2.gif',
+      'img/3.gif',
+      'img/4.gif'
+    ];
+
+    noBtn.addEventListener('click', function () {
+      refuseCount++;
+      yesBtn.classList.remove('enlarge-1', 'enlarge-2', 'enlarge-3');
+      if (refuseCount === 1) {
+        noBtn.classList.add('shrink-1');
+        noBtn.textContent = refuseTexts[0];
+        yesBtn.classList.add('enlarge-1');
+        cuteImg.src = cuteImgs[1];
+      } else if (refuseCount === 2) {
+        noBtn.classList.remove('shrink-1');
+        noBtn.classList.add('shrink-2');
+        noBtn.textContent = refuseTexts[1];
+        yesBtn.classList.add('enlarge-2');
+        cuteImg.src = cuteImgs[2];
+      } else if (refuseCount === 3) {
+        noBtn.classList.remove('shrink-2');
+        noBtn.classList.add('shrink-3');
+        noBtn.textContent = refuseTexts[2];
+        yesBtn.classList.add('enlarge-3');
+        cuteImg.src = cuteImgs[3];
+      } else {
+        noBtn.style.display = 'none';
+        yesBtn.classList.add('enlarge-3');
+      }
+    });
+
+    yesBtn.addEventListener('click', function () {
+      mainContainer.style.display = 'none';
+      successMessage.style.display = 'block';
+    });
+  </script>
+</body>
+
+</html>
